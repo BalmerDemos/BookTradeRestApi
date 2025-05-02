@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Root XML declaration. Required for Maven to understand the file. -->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<!-- This tells Maven you are using version 4.0.0 of its project model -->
+	<modelVersion>4.0.0</modelVersion>
+
+	<!-- Inherit Spring Boot's dependency and plugin versions to simplify configuration -->
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.5</version>
+		<relativePath/> <!-- Means use default Spring Boot BOM (Bill Of Materials) -->
+	</parent>
+
+	<!-- Project metadata -->
+	<groupId>balmerdemos</groupId> <!-- Your organization or base package -->
+	<artifactId>booktrade</artifactId> <!-- Name of the application -->
+	<version>0.0.1-SNAPSHOT</version> <!-- SNAPSHOT = in development -->
+	<name>booktrade</name>
+	<description>Demo project for Spring Boot and MongoDB</description>
+
+	<!-- Developer and source control info -->
+	<developers>
+		<developer>
+			<id>balmer</id>
+			<name>Balmer Developer Team</name>
+			<email>dev@balmerdemos.com</email>
+			<organization>Balmer Demos</organization>
+			<organizationUrl>https://balmerdemos.com</organizationUrl>
+			<roles>
+				<role>developer</role>
+				<role>maintainer</role>
+			</roles>
+			<timezone>+0</timezone>
+		</developer>
+	</developers>
+
+	<!-- Java version used to compile the project -->
+	<properties>
+		<java.version>21</java.version> <!-- Modern Java with better performance and syntax -->
+	</properties>
+
+	<dependencies>
+		<!-- 📦 Core Dependencies -->
+
+		<!-- Provides core Spring MVC (REST controller) support -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+		<!-- Enables Spring Data support for MongoDB databases -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-mongodb</artifactId>
+		</dependency>
+
+		<!-- Adds Spring Security support (authentication, authorization) -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- 🔧 Development Helpers -->
+
+		<!-- Reduces boilerplate code using annotations like @Getter, @Setter -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- Enables hot reload, auto restart during development -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+
+		<!-- 🧪 Testing Dependencies -->
+
+		<!-- Provides test libraries like JUnit, Mockito, etc. -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- Additional support for testing Spring Security components -->
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- 🧾 Swagger/OpenAPI for API documentation -->
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.7.0</version>
+		</dependency>
+
+		<!-- Support for pagination, sorting, etc. in Spring Data -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-commons</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<!-- 📌 Ensures annotation processors like Lombok work properly during compilation -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+
+			<!-- 🚀 Spring Boot plugin to package your app as an executable JAR -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<!-- Lombok is only used at compile time, no need to include it in the final JAR -->
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
